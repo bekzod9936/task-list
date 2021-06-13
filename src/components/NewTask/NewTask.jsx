@@ -1,0 +1,42 @@
+import React, { useContext } from 'react'
+import { FaCheckSquare, FaEdit } from "react-icons/fa";
+import { Container, Table} from './style';
+import { TaskList } from '../../Context/TaskProvider';
+import { DeleteTask } from '../../Context/DeletePovider';
+import { EditTask } from '../../Context/EditProvider';
+import Tasks from './Tasks'
+const NewTask = () => {
+  const [task , setTask] = useContext(TaskList);
+  const [deletetask, setDelete] = useContext(DeleteTask);
+  const [edit, setEdit] = useContext(EditTask);
+  const handleCheck=(id)=>{
+      const checktask=task.filter(v=> v.id === id);
+      setTask(task.filter(v => v.id !== id))
+      setDelete([...deletetask , checktask[0]])
+  }
+  const handleEdit = (id) => {
+    const edittask=task.filter(v => v.id === id)
+    setEdit(edittask[0])
+  }
+  return (
+    <Container>
+      <Table>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>#</Table.Th>
+            <Table.Th>Tasks</Table.Th>
+            <Table.Th><FaCheckSquare /></Table.Th>
+            <Table.Th><FaEdit /></Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+           {
+             task.map(( v , i) => <Tasks edit={handleEdit} value={v}  check={handleCheck} index={i} key={v.id} />)
+           }
+        </Table.Tbody>
+      </Table>
+    </Container>
+  )
+}
+
+export default NewTask
