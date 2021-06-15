@@ -13,13 +13,17 @@ const Progress = () => {
       task: (task.length * 100) / (deletetask.length + task.length),
       donetask: (deletetask.length * 100) / (deletetask.length + task.length),
     }
-    setScore(res)
+    setScore(res);
   }, [task , deletetask ]);
-  setResult(score)
+  useEffect(() => {
+    setResult(score);
+  }, [score]);
   return (
+    <>
     <Container color={result.task ? 'red' : 'lightgrey'  }>
       <Bar width={result.donetask ? result.donetask : '0'}>{result.donetask ? result.donetask % 2 === 0 || result.donetask % 5 === 0 ? `${result.donetask}%` : `${result.donetask.toFixed(2)}%` : ''}</Bar><Div width={result.task ? `${result.task}%` : '0'}>{result.task ? result.task % 2 === 0 || result.task % 5 === 0 ? `${result.task}%` : `${result.task.toFixed(2)}%` : ''}</Div>
     </Container>
+    </>
   )
 }
 

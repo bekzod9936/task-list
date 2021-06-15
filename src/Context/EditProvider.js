@@ -1,5 +1,7 @@
-import React, { createContext, useState} from 'react'
-export const EditTask=createContext()
+import React, { createContext , useState} from 'react';
+export const EditTask=createContext();
+
+
 const EditProvider = ({children}) => {
   const [edit, setEdit] = useState('')
   return (

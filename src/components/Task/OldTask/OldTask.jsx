@@ -1,13 +1,15 @@
-import React , {useContext} from 'react'
+import React , {useContext} from 'react';
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import { Container, Table } from "./style";
-import { DeleteTask} from '../../Context/DeletePovider'
+import { Container, Table } from "../style";
+import { DeleteTask} from '../../../Context/DeletePovider';
 import DoneTasks from './DoneTasks';
+import axios from 'axios';
 const OldTask = () => {
   const [deletetask, setDelete] = useContext(DeleteTask);
   const handleDelete=(id)=>{
+    axios.delete(`http://localhost:3004/deletetasks/${id}`)
   const newDelete=deletetask.filter(v => v.id !== id);
-  setDelete(newDelete);
+  setDelete(newDelete)
   }
   return (
     <Container>

@@ -1,18 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { FaCheckSquare, FaEdit } from "react-icons/fa";
-import { Container, Table} from './style';
-import { TaskList } from '../../Context/TaskProvider';
-import { DeleteTask } from '../../Context/DeletePovider';
-import { EditTask } from '../../Context/EditProvider';
-import Tasks from './Tasks'
+import { Container, Table} from '../style';
+import { TaskList } from '../../../Context/TaskProvider';
+import { DeleteTask } from '../../../Context/DeletePovider';
+import { EditTask } from '../../../Context/EditProvider';
+import Tasks from './Tasks';
+import axios from 'axios';
 const NewTask = () => {
   const [task , setTask] = useContext(TaskList);
   const [deletetask, setDelete] = useContext(DeleteTask);
   const [edit, setEdit] = useContext(EditTask);
   const handleCheck=(id)=>{
       const checktask=task.filter(v=> v.id === id);
-      setTask(task.filter(v => v.id !== id))
-      setDelete([...deletetask , checktask[0]])
+    axios.delete(`http://localhost:3004/tasks/${id}`)
+      .then(setTask(task.filter(v => v.id !== id)))
+    axios.post('http://localhost:3004/deletetasks', checktask[0])
+      .then(setDelete([...deletetask, checktask[0]]))
   }
   const handleEdit = (id) => {
     const edittask=task.filter(v => v.id === id)

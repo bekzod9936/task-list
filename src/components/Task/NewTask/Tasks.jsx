@@ -1,5 +1,5 @@
 import React  from 'react';
-import { Table, Button } from './style';
+import { Table, Button } from '../style';
 const Tasks = ({edit , value , check , index}) => {
   return (
     <Table.Tr>

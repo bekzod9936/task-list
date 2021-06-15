@@ -1,8 +1,8 @@
 import React  from 'react';
-import { Container, Wrapper , Wrap } from './style';
+import { Container, Wrapper, Wrap} from './style';
 import Input from '../Input/Input'
-import NewTask from '../NewTask/NewTask';
-import OldTask from '../OldTask/OldTask';
+import NewTask from '../Task/NewTask/NewTask';
+import OldTask from '../Task/OldTask/OldTask';
 import Result from '../Result/Result';
 const Card = () => {
   return (

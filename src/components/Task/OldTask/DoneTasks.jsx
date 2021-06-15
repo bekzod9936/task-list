@@ -1,5 +1,5 @@
-import React from 'react'
-import { Table, Button } from './style'
+import React from 'react';
+import { Table, Button } from '../style';
 const DoneTasks = ({deletee ,value , index}) => {
   return (
     <Table.Tr>

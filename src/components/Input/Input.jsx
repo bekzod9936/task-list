@@ -2,7 +2,8 @@ import React , {useContext} from 'react';
 import Progress from "./Progress/Progress";
 import { Container, Inputt, Form, Button} from "./style";
 import {TaskList} from '../../Context/TaskProvider';
-import { EditTask } from '../../Context/EditProvider'
+import { EditTask } from '../../Context/EditProvider';
+import axios from 'axios';
 const Input = () => {
   const [task ,setTask] = useContext(TaskList);
   const [edit, setEdit]  = useContext(EditTask)
@@ -13,22 +14,21 @@ const Input = () => {
         id: Date.now(),
         name: e.target.task.value,
       }
-      setTask([...task, newtask]);
+      axios.post('http://localhost:3004/tasks' , {...newtask} )
+        .then(res => setTask([...task, newtask]) )
+      .catch(err => console.log(err))
     } else {
-      const edittask=task.map(v =>{ if(v.id === edit.id){return {id: edit.id , name: e.target.task.value}} else {return v} });
+      const edittask = task.map(v => { if (v.id === edit.id) { axios.put(`http://localhost:3004/tasks/${edit.id}`, { id: edit.id, name: e.target.task.value });return {id: edit.id , name: e.target.task.value}} else {return v} });
       setTask(edittask);
       setEdit('')
     }
-    
     e.target.reset();
   }
-  const handleChange=()=>{
-
-  }
+  
   return (
     <Container>
         <Form onSubmit={handleSubmit}>
-        <Inputt type='text' defaultValue={edit.name || null} onChange={handleChange} name='task' placeholder='Enter your tasks...' /><Button type='submit' color= {edit.name ? 'orange' : 'blue'} >
+        <Inputt type='text' defaultValue={edit.name || null} name='task' placeholder='Enter your tasks...' /><Button type='submit' color= {edit.name ? 'orange' : 'blue'} >
           {
             edit.name ? 'Update' : 'Add'
           }
